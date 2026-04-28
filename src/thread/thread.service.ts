@@ -40,7 +40,11 @@ export class ThreadService {
     return this.prisma.thread.findUnique({
       where: { id },
       include: {
-        user: true,
+        user: {
+          select: {
+            name: true,
+          },
+        },
       },
     })
   }
