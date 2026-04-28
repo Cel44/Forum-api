@@ -12,7 +12,7 @@ export class ThreadService {
       data: {
         title: dto.title,
         content: dto.content,
-        userId,
+        userId: userId,
       },
     })
   }

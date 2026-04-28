@@ -14,14 +14,14 @@ import {
  import { UpdateThreadDto } from './dto/update-thread.dto'
  import { JwtAuthGuard } from '../auth/jwt.guard'
  
- @Controller('threads')
+ @Controller('api/threads')
  export class ThreadController {
    constructor(private threadService: ThreadService) {}
  
    @Post()
    @UseGuards(JwtAuthGuard)
    create(@Req() req, @Body() dto: CreateThreadDto) {
-     return this.threadService.create(req.user.id, dto)
+     return this.threadService.create(req.user.userId, dto)
    }
  
    @Get()
@@ -32,7 +32,7 @@ import {
    @Get('my-threads')
    @UseGuards(JwtAuthGuard)
    findMyThreads(@Req() req) {
-     return this.threadService.findMyThreads(req.user.id)
+     return this.threadService.findMyThreads(req.user.userId)
    }
  
    @Get(':id')
