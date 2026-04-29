@@ -43,12 +43,14 @@ import {
    @Put(':id')
    @UseGuards(JwtAuthGuard)
    update(@Req() req, @Param('id') id: string, @Body() dto: UpdateThreadDto) {
-     return this.threadService.update(req.user.id, id, dto)
+      console.log('Req UserId:', req.user.userId)
+     return this.threadService.update(req.user.userId, id, dto)
+     
    }
  
    @Delete(':id')
    @UseGuards(JwtAuthGuard)
    remove(@Req() req, @Param('id') id: string) {
-     return this.threadService.remove(req.user.id, id)
+     return this.threadService.remove(req.user.userId, id)
    }
  }

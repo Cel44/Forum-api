@@ -56,7 +56,8 @@ export class ThreadService {
 
     if (thread!.userId !== userId) {
       throw new ForbiddenException('Not your thread')
-    }
+
+   }
 
     return this.prisma.thread.update({
       where: { id },
