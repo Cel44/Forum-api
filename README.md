@@ -44,19 +44,23 @@ This project includes authentication, thread management, and user-based authoriz
 ```
 src/
  ├── auth/
- │    ├── auth.controller.ts
+ │    ├── dto/
  │    ├── auth.service.ts
- │    ├── jwt.strategy.ts
- │    └── dto/
+ │    ├── jwt.guard.ts
+ │    └── auth.controller.ts
  │
  ├── thread/
- │    ├── thread.controller.ts
+ │    ├── dto/
  │    ├── thread.service.ts
- │    └── dto/
+ │    └── thread.controller.ts
  │
  ├── prisma/
  │    ├── prisma.service.ts
  │    └── prisma.module.ts
+ │
+ ├── users/
+ │    ├── users.service.ts
+ │    └── users.controller.ts
  │
  └── main.ts
 ```
@@ -120,6 +124,21 @@ http://localhost:3000
 
 ---
 
+## API Documentation (Swagger)
+
+Swagger UI is available at:
+
+http://localhost:3000/api
+
+### Auth Endpoints
+![Auth Swagger](./docs/swagger-auth.png)
+
+### Thread Endpoints
+![Thread Swagger](./docs/swagger-threads.png)
+
+---
+
+
 ## API Endpoints
 
 ### Auth
@@ -128,6 +147,14 @@ http://localhost:3000
 | ------ | -------------------- | ----------------- |
 | POST   | `/api/auth/register` | Register new user |
 | POST   | `/api/auth/login`    | Login and get JWT |
+
+---
+
+### Users
+
+| Method | Endpoint         | Description            |
+| ------ | ---------------- | ---------------------- |
+| GET    | `/api/users/:id` | Get user profile by ID |
 
 ---
 
