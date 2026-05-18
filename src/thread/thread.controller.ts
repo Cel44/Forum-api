@@ -20,37 +20,53 @@ import {
  
    @Post()
    @UseGuards(JwtAuthGuard)
-   create(@Req() req, @Body() dto: CreateThreadDto) {
+   async create(@Req() req, @Body() dto: CreateThreadDto) {
      return this.threadService.create(req.user.userId, dto)
    }
  
    @Get()
-   findAll() {
+   async findAll() {
      return this.threadService.findAll()
    }
  
    @Get('my-threads')
    @UseGuards(JwtAuthGuard)
-   findMyThreads(@Req() req) {
-     return this.threadService.findMyThreads(req.user.userId)
-   }
+   async findMyThreads(@Req() req) {
+      return await this.threadService.findMyThreads(req.user.userId)
+   } 
  
    @Get(':id')
-   findOne(@Param('id') id: string) {
-     return this.threadService.findOne(id)
+   async findOne(@Param('id') id: string) {
+      return await this.threadService.findOne(id)
+      
    }
  
    @Put(':id')
    @UseGuards(JwtAuthGuard)
-   update(@Req() req, @Param('id') id: string, @Body() dto: UpdateThreadDto) {
-      console.log('Req UserId:', req.user.userId)
-     return this.threadService.update(req.user.userId, id, dto)
+   async update(
+      @Req() req, 
+      @Param('id') id: string, 
+      @Body() dto: UpdateThreadDto
+   ) {
+      const updatedThread = await this.threadService.update(req.user.userId, id, dto);
+
+      return {
+         success: true,
+         message: 'Thread updated successfully',
+         data: updatedThread
+      }
      
    }
  
    @Delete(':id')
    @UseGuards(JwtAuthGuard)
-   remove(@Req() req, @Param('id') id: string) {
-     return this.threadService.remove(req.user.userId, id)
+   async remove(@Req() req, @Param('id') id: string) {
+     const deletedThread = await this.threadService.remove(req.user.userId, id);
+
+     return {
+       success: true,
+       message: 'Thread deleted successfully',
+       data: deletedThread // You can return the deleted thread data if needed, or just a success message
+     };
    }
  }
